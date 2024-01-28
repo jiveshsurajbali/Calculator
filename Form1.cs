@@ -5,6 +5,7 @@ namespace Calculator
         int currentIndex = 0;
         decimal currentValue = 0;
         decimal[] operands = { 0, 0 };
+        decimal[] memory = new decimal[20];
         String operation = "";
         bool equalClicked = false;
 
@@ -70,11 +71,12 @@ namespace Calculator
         private void btnEquals_Click(object sender, EventArgs e)
         {
             // Add history functionality
-            // No functioning arithmetic
-            equalClicked = true;
             if (currentIndex == 1)
             {
-                operands[currentIndex] = (inputScreen.Text != "") ? Convert.ToDecimal(inputScreen.Text) : 0;
+                if (!equalClicked)
+                {
+                    operands[currentIndex] = (inputScreen.Text != "") ? Convert.ToDecimal(inputScreen.Text) : 0;
+                }
                 switch (operation)
                 {
                     case "+":
@@ -101,11 +103,12 @@ namespace Calculator
             }
             else
             {
-                currentValue = Convert.ToDecimal(inputScreen.Text);
+                currentValue = (inputScreen.Text != "") ? Convert.ToDecimal(inputScreen.Text) : 0;
             }
             inputScreen.Clear();
             outputScreen.Text = Convert.ToString(currentValue);
             operands[0] = currentValue;
+            equalClicked = true;
         }
 
         private void btnZero_Click(object sender, EventArgs e)
