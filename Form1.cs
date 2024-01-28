@@ -25,10 +25,18 @@ namespace Calculator
             equalClicked = false;
         }
 
+        private void getFirstOperand()
+        { 
+            operands[currentIndex] = Convert.ToDecimal(inputScreen.Text);
+            outputScreen.Text = operands[currentIndex].ToString();
+            inputScreen.Clear();
+            currentIndex++;   
+        }
+
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
             // Maximum length of number 10
-
+            // Add the setting of values here
 
         }
 
@@ -64,8 +72,9 @@ namespace Calculator
             // Add history functionality
             // No functioning arithmetic
             equalClicked = true;
-            if (inputScreen.Text != "")
+            if (currentIndex == 1)
             {
+                operands[currentIndex] = (inputScreen.Text != "") ? Convert.ToDecimal(inputScreen.Text) : 0;
                 switch (operation)
                 {
                     case "+":
@@ -88,12 +97,15 @@ namespace Calculator
                             btnZero.PerformClick();
                         }
                         break;
-                    default:
-                        currentValue = Convert.ToDecimal(inputScreen.Text);
-                        break;
                 }
             }
+            else
+            {
+                currentValue = Convert.ToDecimal(inputScreen.Text);
+            }
+            inputScreen.Clear();
             outputScreen.Text = Convert.ToString(currentValue);
+            operands[0] = currentValue;
         }
 
         private void btnZero_Click(object sender, EventArgs e)
@@ -239,51 +251,38 @@ namespace Calculator
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            //operation = "+";
-            //if (currentIndex == 0)
-            //{
-            //    operands[currentIndex] = Convert.ToDecimal(inputScreen.Text);
-            //    currentIndex++;
-            //} else if (currentIndex == 1)
-            //{
-            //    operands[0] = operands[0] + operands[1];
-            //    operands[1] = Convert.ToDecimal(inputScreen.Text);
-            //}
-            //inputScreen.Clear();
-            //outputScreen.Text = Convert.ToString(currentValue);
-
+            operation = "+";
+            if (currentIndex == 0)
+            {
+                getFirstOperand();
+            }
         }
 
         private void btnSubstract_Click(object sender, EventArgs e)
         {
             operation += "-";
+            if (currentIndex == 0)
+            {
+                getFirstOperand();
+            }
         }
 
         private void btnMultiply_Click(object sender, EventArgs e)
         {
             operation = "*";
+            if (currentIndex == 0)
+            {
+                getFirstOperand();
+            }
         }
 
         private void btnDivide_Click(object sender, EventArgs e)
         {
             operation = "/";
-            //if (currentIndex == 0)
-            //{
-            //    operands[currentIndex] = Convert.ToDecimal(inputScreen.Text);
-            //    currentIndex++;
-            //}
-            //else if (currentIndex == 1)
-            //{
-            //    try
-            //    {
-            //        operands[0] = operands[0] + operands[1];
-            //        operands[1] = Convert.ToDecimal(inputScreen.Text);
-            //    }
-            //    catch (DivideByZeroException) {
-            //        MessageBox.Show("Cannot divide by Zero. All values reset.", "Arithmetic Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //        btnZero.PerformClick();
-            //    }
-            //}
+            if (currentIndex == 0)
+            {
+                getFirstOperand();
+            }
         }
 
         private void btnDecimal_Click(object sender, EventArgs e)
