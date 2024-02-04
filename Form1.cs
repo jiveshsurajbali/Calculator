@@ -1,11 +1,13 @@
 namespace Calculator
 {
+    // Refactor code, untidy
+
     public partial class Form1 : Form
     {
         int currentIndex = 0;
         decimal currentValue = 0;
         decimal[] operands = { 0, 0 };
-        decimal[] memory = new decimal[20];
+        List<decimal> memory = new List<decimal>();
         String operation = "";
         bool equalClicked = false;
 
@@ -20,6 +22,7 @@ namespace Calculator
             currentValue = 0;
             operands[0] = 0;
             operands[1] = 0;
+            memory.Clear();
             operation = "";
             inputScreen.Clear();
             outputScreen.Clear();
@@ -27,8 +30,8 @@ namespace Calculator
         }
 
         private void getFirstOperand()
-        { 
-            operands[currentIndex] = Convert.ToDecimal(inputScreen.Text);
+        {
+            operands[currentIndex] = (inputScreen.Text != "") ? Convert.ToDecimal(inputScreen.Text) : 0;
             outputScreen.Text = operands[currentIndex].ToString();
             inputScreen.Clear();
             currentIndex++;   
@@ -107,6 +110,7 @@ namespace Calculator
             }
             inputScreen.Clear();
             outputScreen.Text = Convert.ToString(currentValue);
+            memory.Add(currentValue);
             operands[0] = currentValue;
             equalClicked = true;
         }
