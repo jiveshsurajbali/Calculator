@@ -1,3 +1,3 @@
 # Calculator
 
-A small project I started to transition myself from coding only doing problems solving challenges to building apps.
+A small project I started to transition myself from only doing small problem-solving challenges to building apps.
